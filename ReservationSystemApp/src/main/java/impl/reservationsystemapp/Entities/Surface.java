@@ -8,9 +8,15 @@ public class Surface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private double rentalPrice; // Rental price per minute
+
+    public Surface(String name, double rentalPrice) {
+        this.name = name;
+        this.rentalPrice = rentalPrice;
+    }
+
+    public Surface() {}
 
     public Long getId() {
         return id;

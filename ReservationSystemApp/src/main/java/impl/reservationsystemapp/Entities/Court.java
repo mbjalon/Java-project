@@ -11,7 +11,7 @@ public class Court {
 
     private String name;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "surface_id")
     private Surface surface;
 

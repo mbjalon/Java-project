@@ -2,6 +2,7 @@ package impl.reservationsystemapp.Entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.Duration;
 
 
 @Entity
@@ -10,7 +11,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "court_id")
     private Court court;
 
@@ -22,6 +23,18 @@ public class Reservation {
     private LocalDateTime endTime;
     private boolean isDoubles;
     private double price;
+
+    public Reservation(Court court, Customer customer, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles, double price) {
+        this.court = court;
+        this. customer = customer;
+        this.startTime = startTime;
+        this. endTime = endTime;
+        this.isDoubles = isDoubles;
+        this.price = price;
+    }
+
+    public Reservation() {
+    }
 
     public Long getId() {
         return id;
@@ -75,7 +88,10 @@ public class Reservation {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void calculatePrice() {
+        double minutePrice = court.getSurface().getRentalPrice();
+        long durationInMinutes = Duration.between(startTime, endTime).toMinutes();
+        double multiply = isDoubles ? 1.5 : 1.0;
+        price = minutePrice * durationInMinutes * multiply;
     }
 }
