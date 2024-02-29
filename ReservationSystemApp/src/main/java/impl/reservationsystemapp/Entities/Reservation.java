@@ -1,25 +1,41 @@
 package impl.reservationsystemapp.Entities;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "court_id")
+    @JoinColumn(name = "court_id", referencedColumnName = "id")
+    @NotNull(message = "Court is required!")
     private Court court;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @NotNull(message = "Customer is required!")
     private Customer customer;
 
+    @NotNull(message = "Start time is required!")
+    @Future(message = "Start time must be in future!")
     private LocalDateTime startTime;
+
+    @NotNull(message = "End time is required!")
+    @Future(message = "End time must be in future!")
     private LocalDateTime endTime;
     private boolean isDoubles;
     private double price;
@@ -33,59 +49,12 @@ public class Reservation {
         this.price = price;
     }
 
-    public Reservation() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Court getCourt() {
-        return court;
-    }
-
-    public void setCourt(Court court) {
-        this.court = court;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
     public boolean isDoubles() {
         return isDoubles;
     }
 
     public void setDoubles(boolean doubles) {
         isDoubles = doubles;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public void calculatePrice() {

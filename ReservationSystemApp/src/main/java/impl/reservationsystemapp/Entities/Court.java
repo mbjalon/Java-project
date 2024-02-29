@@ -1,41 +1,27 @@
 package impl.reservationsystemapp.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Court {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Name is required")
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "surface_id")
+    @JoinColumn(name = "surface_id", referencedColumnName = "id")
+    @NotNull(message = "Surface is required!")
     private Surface surface;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Surface getSurface() {
-        return surface;
-    }
-
-    public void setSurface(Surface surface) {
-        this.surface = surface;
-    }
 }
