@@ -26,9 +26,9 @@ public class Reservation {
     private Court court;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    @NotNull(message = "Customer is required!")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    @NotNull(message = "User is required!")
+    private User user;
 
     @NotNull(message = "Start time is required!")
     @Future(message = "Start time must be in future!")
@@ -40,9 +40,9 @@ public class Reservation {
     private boolean isDoubles;
     private double price;
 
-    public Reservation(Court court, Customer customer, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles, double price) {
+    public Reservation(Court court, User user, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles, double price) {
         this.court = court;
-        this. customer = customer;
+        this.user = user;
         this.startTime = startTime;
         this. endTime = endTime;
         this.isDoubles = isDoubles;

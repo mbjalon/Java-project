@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Customer {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class Customer {
     @NotNull(message = "Name is required")
     private String name;
 
-    public Customer(String phoneNumber, String name) {
+    public User(String phoneNumber, String name) {
         this.phoneNumber = phoneNumber;
         this.name = name;
     }

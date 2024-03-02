@@ -1,9 +1,9 @@
 package impl.reservationsystemapp.Repositories;
 
-import impl.reservationsystemapp.Entities.Customer;
+import impl.reservationsystemapp.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }

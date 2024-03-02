@@ -32,7 +32,7 @@ public class ReservationService {
     public Reservation updateReservation(Long id, Reservation updatedReservation) {
         Reservation reservation = getReservationById(id);
         reservation.setCourt(updatedReservation.getCourt());
-        reservation.setCustomer(updatedReservation.getCustomer());
+        reservation.setUser(updatedReservation.getUser());
         reservation.setStartTime(updatedReservation.getStartTime());
         reservation.setEndTime(updatedReservation.getEndTime());
         reservation.setDoubles(updatedReservation.isDoubles());
