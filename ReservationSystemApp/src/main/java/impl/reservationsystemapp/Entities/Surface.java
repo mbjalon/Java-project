@@ -5,12 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
-@Setter
-@Getter
+@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Entity
 public class Surface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

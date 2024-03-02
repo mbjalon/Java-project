@@ -6,11 +6,9 @@ import lombok.*;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Court {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

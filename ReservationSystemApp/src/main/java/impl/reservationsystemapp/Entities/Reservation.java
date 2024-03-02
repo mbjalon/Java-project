@@ -10,11 +10,9 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +23,7 @@ public class Reservation {
     @NotNull(message = "Court is required!")
     private Court court;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     @NotNull(message = "User is required!")
     private User user;
@@ -37,24 +35,18 @@ public class Reservation {
     @NotNull(message = "End time is required!")
     @Future(message = "End time must be in future!")
     private LocalDateTime endTime;
+
     private boolean isDoubles;
+
     private double price;
 
-    public Reservation(Court court, User user, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles, double price) {
+    public Reservation(Court court, User user, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
         this.court = court;
         this.user = user;
         this.startTime = startTime;
         this. endTime = endTime;
         this.isDoubles = isDoubles;
-        this.price = price;
-    }
-
-    public boolean isDoubles() {
-        return isDoubles;
-    }
-
-    public void setDoubles(boolean doubles) {
-        isDoubles = doubles;
+        calculatePrice();
     }
 
     public void calculatePrice() {

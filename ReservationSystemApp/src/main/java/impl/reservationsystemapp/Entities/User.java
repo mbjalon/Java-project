@@ -6,11 +6,11 @@ import lombok.*;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +26,4 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.name = name;
     }
-
 }
