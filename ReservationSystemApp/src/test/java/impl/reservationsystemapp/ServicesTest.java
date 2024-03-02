@@ -8,6 +8,7 @@ import impl.reservationsystemapp.Services.CourtService;
 import impl.reservationsystemapp.Services.ReservationService;
 import impl.reservationsystemapp.Services.SurfaceService;
 import impl.reservationsystemapp.Services.UserService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +33,22 @@ public class ServicesTest {
 
     @Autowired
     private ReservationService reservationService;
+
+    @AfterEach
+    public void cleanup() {
+        List<Reservation> reservations = reservationService.getAllReservations();
+        reservations.forEach(reservation -> reservationService.deleteReservation(reservation.getId()));
+
+        List<Court> courts = courtService.getAllCourts();
+        courts.forEach(court -> courtService.deleteCourt(court.getId()));
+
+        List<Surface> surfaces = surfaceService.getAllSurfaces();
+        surfaces.forEach(surface -> surfaceService.deleteSurface(surface.getId()));
+
+        List<User> users = userService.getAllUsers();
+        users.forEach(user -> userService.deleteUser(user.getId()));
+    }
+
 
     @Test
     public void testCreateCourt() {
@@ -139,7 +156,9 @@ public class ServicesTest {
         assertThrows(InvalidDataAccessApiUsageException.class, () -> {
             Reservation reservation = new Reservation(court, nonExistingUser, startTime, endTime, false);
             reservationService.createReservation(reservation);
+            reservationService.deleteReservation(reservation.getId());
         });
+
     }
 
 }
