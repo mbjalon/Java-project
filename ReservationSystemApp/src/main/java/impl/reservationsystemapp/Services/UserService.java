@@ -2,6 +2,7 @@ package impl.reservationsystemapp.Services;
 
 import impl.reservationsystemapp.Entities.User;
 import impl.reservationsystemapp.Repositories.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(User user) {
+    public User createUser(@Valid User user) {
         return userRepository.save(user);
     }
 

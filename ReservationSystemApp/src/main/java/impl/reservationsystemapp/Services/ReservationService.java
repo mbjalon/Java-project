@@ -2,6 +2,7 @@ package impl.reservationsystemapp.Services;
 
 import impl.reservationsystemapp.Entities.Reservation;
 import impl.reservationsystemapp.Repositories.ReservationRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public Reservation createReservation(Reservation reservation) {
+    public Reservation createReservation(@Valid Reservation reservation) {
         reservation.calculatePrice();
         return reservationRepository.save(reservation);
     }

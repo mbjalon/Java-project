@@ -2,6 +2,7 @@ package impl.reservationsystemapp.Services;
 
 import impl.reservationsystemapp.Entities.Surface;
 import impl.reservationsystemapp.Repositories.SurfaceRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class SurfaceService {
         this.surfaceRepository = surfaceRepository;
     }
 
-    public Surface createSurface(Surface surface) {
+    public Surface createSurface(@Valid Surface surface) {
         return surfaceRepository.save(surface);
     }
 

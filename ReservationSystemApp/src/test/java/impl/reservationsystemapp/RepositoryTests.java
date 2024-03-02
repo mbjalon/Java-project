@@ -1,24 +1,15 @@
-package impl.reservationsystemapp.RepTest;
+package impl.reservationsystemapp;
 
-import impl.reservationsystemapp.Entities.Court;
-import impl.reservationsystemapp.Entities.Reservation;
-import impl.reservationsystemapp.Entities.Surface;
-import impl.reservationsystemapp.Entities.User;
-import impl.reservationsystemapp.Repositories.CourtRepository;
-import impl.reservationsystemapp.Repositories.ReservationRepository;
-import impl.reservationsystemapp.Repositories.SurfaceRepository;
-import impl.reservationsystemapp.Repositories.UserRepository;
+import impl.reservationsystemapp.Entities.*;
+import impl.reservationsystemapp.Repositories.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class RepositoryTests {
     @Autowired

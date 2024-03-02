@@ -2,6 +2,7 @@ package impl.reservationsystemapp.Services;
 
 import impl.reservationsystemapp.Entities.Court;
 import impl.reservationsystemapp.Repositories.CourtRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class CourtService {
         this.courtRepository = courtRepository;
     }
 
-    public Court createCourt(Court court) {
+    public Court createCourt(@Valid Court court) {
         return courtRepository.save(court);
     }
 

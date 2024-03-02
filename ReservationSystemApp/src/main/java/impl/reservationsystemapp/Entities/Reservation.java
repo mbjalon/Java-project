@@ -41,6 +41,10 @@ public class Reservation {
     private double price;
 
     public Reservation(Court court, User user, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
+        if (startTime.isAfter(endTime)) {
+            throw new IllegalArgumentException("Start time must be before end time");
+        }
+
         this.court = court;
         this.user = user;
         this.startTime = startTime;
