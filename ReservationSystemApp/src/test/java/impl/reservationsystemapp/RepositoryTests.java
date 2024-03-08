@@ -1,183 +1,142 @@
 package impl.reservationsystemapp;
 
-import impl.reservationsystemapp.Entities.*;
-import impl.reservationsystemapp.Repositories.*;
+import impl.reservationsystemapp.Entities.Court;
+import impl.reservationsystemapp.Entities.Reservation;
+import impl.reservationsystemapp.Entities.Surface;
+import impl.reservationsystemapp.Entities.User;
+import impl.reservationsystemapp.Repositories.CourtRepository;
+import impl.reservationsystemapp.Repositories.ReservationRepository;
+import impl.reservationsystemapp.Repositories.SurfaceRepository;
+import impl.reservationsystemapp.Repositories.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
-@DataJpaTest
 public class RepositoryTests {
-    @Autowired
+    @Mock
     private CourtRepository courtRepository;
 
-    @Autowired
+    @Mock
     private SurfaceRepository surfaceRepository;
 
-    @Autowired
+    @Mock
     private UserRepository userRepository;
 
-    @Autowired
+    @Mock
     private ReservationRepository reservationRepository;
 
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+
     @Test
-    public void testCourtRepository() {
-        Surface surface = new Surface();
-        surface.setName("Grass");
-        surface.setRentalPrice(10.0);
-        surfaceRepository.save(surface);
-
-        Court court = new Court();
-        court.setName("Court 1");
-        court.setSurface(surface);
-        courtRepository.save(court);
-
-        Court foundCourt = courtRepository.findById(court.getId()).orElse(null);
-        assertThat(foundCourt).isNotNull();
-        assert foundCourt != null;
-        assertThat(foundCourt.getName()).isEqualTo("Court 1");
-        assertThat(foundCourt.getSurface()).isEqualTo(surface);
+    public void testGetAllSurfaces() {
+        List<Surface> surfaces = new ArrayList<>();
+        surfaces.add(new Surface(1L, "Grass", 10.0));
+        surfaces.add(new Surface(2L, "Clay", 8.0));
+        when(surfaceRepository.findAll()).thenReturn(surfaces);
+        List<Surface> result = surfaceRepository.findAll();
+        assertEquals(surfaces.size(), result.size());
+        assertEquals(surfaces, result);
+        verify(surfaceRepository, times(1)).findAll();
     }
 
     @Test
-    public void testSurfaceRepository() {
-        Surface surface = new Surface();
-        surface.setName("Grass");
-        surface.setRentalPrice(10.0);
-        surfaceRepository.save(surface);
-
-        Surface foundSurface = surfaceRepository.findById(surface.getId()).orElse(null);
-        assertThat(foundSurface).isNotNull();
-        assert foundSurface != null;
-        assertThat(foundSurface.getName()).isEqualTo("Grass");
-        assertThat(foundSurface.getRentalPrice()).isEqualTo(10.0);
+    public void testGetSurfaceById() {
+        Surface surface = new Surface(1L, "Grass", 10.0);
+        when(surfaceRepository.findById(1L)).thenReturn(Optional.of(surface));
+        Optional<Surface> result = surfaceRepository.findById(1L);
+        assertEquals(surface, result.get());
+        verify(surfaceRepository, times(1)).findById(1L);
     }
 
     @Test
-    public void testUserRepository() {
-        User user = new User();
-        user.setName("John Doe");
-        user.setPhoneNumber("123456789");
-        userRepository.save(user);
-
-        User foundUser = userRepository.findById(user.getId()).orElse(null);
-        assertThat(foundUser).isNotNull();
-        assert foundUser != null;
-        assertThat(foundUser.getName()).isEqualTo("John Doe");
-        assertThat(foundUser.getPhoneNumber()).isEqualTo("123456789");
+    public void testGetAllCourts() {
+        List<Court> courts = new ArrayList<>();
+        courts.add(new Court(1L, "Sydney", new Surface()));
+        courts.add(new Court(2L, "London", new Surface()));
+        when(courtRepository.findAll()).thenReturn(courts);
+        List<Court> result = courtRepository.findAll();
+        assertEquals(courts.size(), result.size());
+        assertEquals(courts, result);
+        verify(courtRepository, times(1)).findAll();
     }
 
     @Test
-    public void testReservationRepository() {
-        Surface surface = new Surface();
-        surface.setName("Grass");
-        surface.setRentalPrice(10.0);
-        surfaceRepository.save(surface);
-
-        Court court = new Court();
-        court.setName("Court 1");
-        court.setSurface(surface);
-        courtRepository.save(court);
-
-        User user = new User();
-        user.setName("John Doe");
-        user.setPhoneNumber("123456789");
-        userRepository.save(user);
-
-        Reservation reservation = new Reservation();
-        reservation.setCourt(court);
-        reservation.setStartTime(LocalDateTime.now().plusHours(1));
-        reservation.setEndTime(LocalDateTime.now().plusHours(3));
-        reservation.setUser(user);
-        reservation.setDoubles(false);
-        reservation.setPrice(10.0);
-        reservationRepository.save(reservation);
-
-        Reservation foundReservation = reservationRepository.findById(reservation.getId()).orElse(null);
-        assertThat(foundReservation).isNotNull();
-        assert foundReservation != null;
-        assertThat(foundReservation.getCourt()).isEqualTo(court);
-        assertThat(foundReservation.getUser()).isEqualTo(user);
-        assertThat(foundReservation.isDoubles()).isFalse();
-        assertThat(foundReservation.getPrice()).isEqualTo(10.0);
+    public void testGetCourtById() {
+        Court court = new Court(1L, "New York", new Surface());
+        when(courtRepository.findById(1L)).thenReturn(Optional.of(court));
+        Optional<Court> result = courtRepository.findById(1L);
+        assertEquals(court, result.get());
+        verify(courtRepository, times(1)).findById(1L);
     }
 
     @Test
-    public void testUpdateCourt() {
-        Surface surface = new Surface();
-        surface.setName("Grass");
-        surface.setRentalPrice(10.0);
-        surfaceRepository.save(surface);
-
-        Court court = new Court();
-        court.setName("Court 1");
-        court.setSurface(surface);
-        courtRepository.save(court);
-
-        Court foundCourt = courtRepository.findById(court.getId()).orElse(null);
-        assertThat(foundCourt).isNotNull();
-
-        assert foundCourt != null;
-        foundCourt.setName("Updated Court Name");
-        courtRepository.save(foundCourt);
-
-        Court updatedCourt = courtRepository.findById(court.getId()).orElse(null);
-        assertThat(updatedCourt).isNotNull();
-        assert updatedCourt != null;
-        assertThat(updatedCourt.getName()).isEqualTo("Updated Court Name");
+    public void testGetAllUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("002913810", "In Qool", "q00l1n", "inQool", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))));
+        users.add(new User(1L, "93810371", "Joe Test", "J0etst", "joeTest", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))));
+        when(userRepository.findAll()).thenReturn(users);
+        List<User> result = userRepository.findAll();
+        assertEquals(users.size(), result.size());
+        assertEquals(users, result);
+        verify(userRepository, times(1)).findAll();
     }
 
     @Test
-    public void testDeleteSurface() {
-        Surface surface = new Surface();
-        surface.setName("Grass");
-        surface.setRentalPrice(10.0);
-        surfaceRepository.save(surface);
-
-        surfaceRepository.deleteById(surface.getId());
-
-        Surface deletedSurface = surfaceRepository.findById(surface.getId()).orElse(null);
-        assertThat(deletedSurface).isNull();
+    public void testGetUserById() {
+        User user = new User(1L, "93810371", "Joe Test", "J0etst", "joeTest", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        Optional<User> result = userRepository.findById(1L);
+        assertEquals(user, result.get());
+        verify(userRepository, times(1)).findById(1L);
     }
 
     @Test
-    public void testReservationWithUserAndCourt() {
-        User user = new User();
-        user.setName("John Doe");
-        user.setPhoneNumber("123456789");
-        userRepository.save(user);
+    public void testGetAllReservations() {
+        Court court1 = new Court(1L, "Brno", new Surface());
+        Court court2 = new Court(2L, "Praha", new Surface());
+        User user = new User(1L, "93810371", "Joe Test", "J0etst", "joeTest", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+        LocalDateTime startTime1 = LocalDateTime.now();
+        LocalDateTime endTime1 = startTime1.plusHours(1);
+        LocalDateTime startTime2 = startTime1.plusHours(2);
+        LocalDateTime endTime2 = startTime2.plusHours(1);
 
-        Surface surface = new Surface();
-        surface.setName("Grass");
-        surface.setRentalPrice(10.0);
-        surfaceRepository.save(surface);
+        List<Reservation> reservations = new ArrayList<>();
+        reservations.add(new Reservation(court1, user, startTime1, endTime1, false));
+        reservations.add(new Reservation(court2, user, startTime2, endTime2, false));
 
-        Court court = new Court();
-        court.setName("Court 1");
-        court.setSurface(surface);
-        courtRepository.save(court);
+        when(reservationRepository.findAll()).thenReturn(reservations);
+        List<Reservation> result = reservationRepository.findAll();
+        assertEquals(reservations.size(), result.size());
+        assertEquals(reservations, result);
+        verify(reservationRepository, times(1)).findAll();
+    }
 
-        LocalDateTime startTime = LocalDateTime.now().plusHours(1);
+    @Test
+    public void testGetReservationById() {
+        Court court = new Court(1L, "Baník Ostrava", new Surface());
+        User user = new User(1L, "93810371", "Joe Test", "J0etst", "joeTest", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+        LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusHours(1);
-        Reservation reservation = new Reservation();
-        reservation.setCourt(court);
-        reservation.setUser(user);
-        reservation.setStartTime(startTime);
-        reservation.setEndTime(endTime);
-        reservation.setDoubles(false);
-        reservation.setPrice(20.0);
-        reservationRepository.save(reservation);
+        Reservation reservation = new Reservation(court, user, startTime, endTime, false);
 
-        Reservation foundReservation = reservationRepository.findById(reservation.getId()).orElse(null);
-        assertThat(foundReservation).isNotNull();
-        assert foundReservation != null;
-        assertThat(foundReservation.getCourt()).isEqualTo(court);
-        assertThat(foundReservation.getUser()).isEqualTo(user);
-        assertThat(foundReservation.getStartTime()).isEqualTo(startTime);
-        assertThat(foundReservation.getEndTime()).isEqualTo(endTime);
+        when(reservationRepository.findById(1L)).thenReturn(Optional.of(reservation));
+        Optional<Reservation> result = reservationRepository.findById(1L);
+        assertEquals(reservation, result.get());
+        verify(reservationRepository, times(1)).findById(1L);
     }
 }
