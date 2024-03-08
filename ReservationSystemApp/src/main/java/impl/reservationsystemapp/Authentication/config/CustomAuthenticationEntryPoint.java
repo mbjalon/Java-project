@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Custom authentication entry point to handle unauthorized access.
+ *
+ * @author Martin Bjaloň
+ */
+
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

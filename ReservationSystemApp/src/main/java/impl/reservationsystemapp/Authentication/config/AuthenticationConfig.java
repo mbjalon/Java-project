@@ -8,6 +8,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Configuration class for authentication-related beans.
+ *
+ * @author Martin Bjaloň
+ */
+
 @Configuration
 public class AuthenticationConfig {
 

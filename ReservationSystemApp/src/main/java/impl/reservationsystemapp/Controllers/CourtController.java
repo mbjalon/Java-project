@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for managing court-related endpoints.
+ *
+ * @author Martin Bjaloň
+ */
+
 @RestController
 @RequestMapping("/api/courts")
 public class CourtController {

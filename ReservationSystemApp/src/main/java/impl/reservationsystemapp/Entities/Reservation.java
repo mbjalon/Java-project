@@ -8,6 +8,11 @@ import lombok.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a reservation in the reservation system.
+ *
+ * @author Martin Bjaloň
+ */
 
 @Entity
 @Data

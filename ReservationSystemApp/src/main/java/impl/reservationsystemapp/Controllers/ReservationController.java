@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for managing reservation-related endpoints.
+ *
+ * @author Martin Bjaloň
+ */
+
 @RestController
 @RequestMapping("/api/reservations")
 public class ReservationController {

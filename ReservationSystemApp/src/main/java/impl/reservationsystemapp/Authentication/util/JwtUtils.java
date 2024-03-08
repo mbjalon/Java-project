@@ -13,6 +13,11 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Utility class for working with JSON Web Tokens (JWTs) in the authentication system.
+ *
+ * @author Martin Bjaloň
+ */
 
 @Slf4j
 public class JwtUtils {

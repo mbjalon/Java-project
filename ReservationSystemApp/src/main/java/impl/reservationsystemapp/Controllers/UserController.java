@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for managing user-related endpoints.
+ *
+ * @author Martin Bjaloň
+ */
+
 @Controller
 @RequestMapping("/api/users")
 public class UserController {

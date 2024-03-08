@@ -9,6 +9,12 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuration class for setting up the security filter chain.
+ *
+ * @author Martin Bjaloň
+ */
+
 @Configuration
 public class SecurityFilterChainConfig {
 

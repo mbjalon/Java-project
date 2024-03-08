@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Service class for managing surfaces in the application.
+ *
+ * @author Martin Bjaloň
+ */
+
 @Service
 public class SurfaceService {
     private final SurfaceRepository surfaceRepository;

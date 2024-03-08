@@ -10,6 +10,11 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
+/**
+ * Represents a user in the application.
+ *
+ * @author Martin Bjaloň
+ */
 
 @Entity
 @Data

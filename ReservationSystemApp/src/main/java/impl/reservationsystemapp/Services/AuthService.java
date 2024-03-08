@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service class for handling authentication-related operations.
+ *
+ * @author Martin Bjaloň
+ */
 @Service
 public class AuthService {
     private final AuthenticationManager authenticationManager;

@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for managing surface-related endpoints.
+ *
+ * @author martin Bjaloň
+ */
+
 @RestController
 @RequestMapping("/api/surfaces")
 public class SurfaceController {

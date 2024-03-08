@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+/**
+ * Represents a court entity in the reservation system.
+ *
+ * @author Martin Bjaloň
+ */
 
 @Entity
 @Data
