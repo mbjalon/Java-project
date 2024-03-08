@@ -28,7 +28,8 @@ git clone https://github.com/mbjalon/inQool-Java-project.git
 ```
 2. Navigate to the project directory:
 ```
-cd reservation-system
+cd inQool-Java-project
+cd ReservationSystemApp
 ```
 3. Build the project using Maven:
 ```
