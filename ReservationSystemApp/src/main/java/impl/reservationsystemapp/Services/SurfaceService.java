@@ -37,6 +37,9 @@ public class SurfaceService {
     }
 
     public void deleteSurface(Long id) {
+        surfaceRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Surface with id " + id + " not found"));
         surfaceRepository.deleteById(id);
     }
+
 }

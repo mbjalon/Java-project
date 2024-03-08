@@ -40,7 +40,11 @@ public class Reservation {
 
     private double price;
 
-    public Reservation(Court court, User user, LocalDateTime startTime, LocalDateTime endTime, boolean isDoubles) {
+    public Reservation(@NotNull Court court, @NotNull User user, @NotNull LocalDateTime startTime, @NotNull LocalDateTime endTime, @NotNull boolean isDoubles) {
+        if (startTime == null || endTime == null) {
+            throw new IllegalArgumentException("Start time and end time must not be null");
+        }
+
         if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time must be before end time");
         }

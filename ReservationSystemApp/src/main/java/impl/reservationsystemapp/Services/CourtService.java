@@ -38,6 +38,8 @@ public class CourtService {
     }
 
     public void deleteCourt(Long id) {
+        courtRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Court with id " + id + " not found"));
         courtRepository.deleteById(id);
     }
 }

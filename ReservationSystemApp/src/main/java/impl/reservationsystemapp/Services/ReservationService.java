@@ -42,6 +42,8 @@ public class ReservationService {
     }
 
     public void deleteReservation(Long id) {
+        reservationRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Reservation with id " + id + " not found"));
         reservationRepository.deleteById(id);
     }
 }

@@ -9,6 +9,8 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Table(name = "court")
 public class Court {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
